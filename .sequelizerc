@@ -1,0 +1,16 @@
+var path = require('path');
+
+module.exports = {
+  'config': path.resolve('src', 'Context', 'Shared', 'infrastructure', 'persistence', 'sequelize', 'config', 'index.js'),
+  'models-path': path.resolve('src', 'Context', 'Shared', 'infrastructure', 'persistence', 'sequelize', 'models'),
+  'seeders-path': path.resolve('src', 'Context', 'Shared', 'infrastructure', 'persistence', 'sequelize', 'seeders'),
+  'migrations-path': path.resolve(
+    'src',
+    'Context',
+    'Shared',
+    'infrastructure',
+    'persistence',
+    'sequelize',
+    'migrations',
+  ),
+};
