@@ -16,54 +16,65 @@ export class SequelizeUserRepository implements UserRepository {
 
   async theEmailIsTaken(userEmail: UserEmail | string): Promise<boolean> {
     const UserModel = this.models.User;
-    const baseUser = await UserModel.findOne({
+    const user = await UserModel.findOne({
       where: {
         user_email: userEmail instanceof UserEmail ? (<UserEmail>userEmail).value : userEmail,
       },
     });
-    return !!baseUser === true;
+    return !!user === true;
   }
 
   async theUserNameIsTaken(userName: UserName | string): Promise<boolean> {
     const UserModel = this.models.User;
-    const baseUser = await UserModel.findOne({
+    const user = await UserModel.findOne({
       where: {
         username: userName instanceof UserName ? (<UserName>userName).value : userName,
       },
     });
-    return !!baseUser === true;
+    return !!user === true;
   }
 
   async exists(userEmail: UserEmail): Promise<boolean> {
     const UserModel = this.models.User;
-    const baseUser = await UserModel.findOne({
+    const user = await UserModel.findOne({
       where: {
         user_email: userEmail.value,
       },
     });
-    return !!baseUser === true;
+    return !!user === true;
   }
 
   async getUserByUserName(userName: UserName | string): Promise<User> {
     const UserModel = this.models.User;
-    const baseUser = await UserModel.findOne({
+    const user = await UserModel.findOne({
       where: {
         username: userName instanceof UserName ? (<UserName>userName).value : userName,
       },
     });
-    if (!!baseUser === false) throw new Error('User not found.');
-    return UserMapper.toDomain(baseUser);
+    if (!!user === false) throw new Error('User not found.');
+    return UserMapper.toDomain(user);
+  }
+
+  async getUserByActivationToken(activationToken: string): Promise<User> {
+    const UserModel = this.models.User;
+    const user = await UserModel.findOne({
+      where: {
+        activation_token: activationToken,
+      },
+    });
+    if (!!user === false) throw new Error('User not found.');
+    return UserMapper.toDomain(user);
   }
 
   async getUserByUserId(userId: string): Promise<User> {
     const UserModel = this.models.User;
-    const baseUser = await UserModel.findOne({
+    const user = await UserModel.findOne({
       where: {
         user_id: userId,
       },
     });
-    if (!!baseUser === false) throw new Error('User not found.');
-    return UserMapper.toDomain(baseUser);
+    if (!!user === false) throw new Error('User not found.');
+    return UserMapper.toDomain(user);
   }
 
   async save(user: User): Promise<void> {
@@ -74,10 +85,6 @@ export class SequelizeUserRepository implements UserRepository {
 
       if (!exists) {
         await UserModel.create(raw);
-      } else {
-        await UserModel.update(raw, {
-          where: { user_id: user.userId.id.toString() },
-        });
       }
       return;
     } catch (error) {

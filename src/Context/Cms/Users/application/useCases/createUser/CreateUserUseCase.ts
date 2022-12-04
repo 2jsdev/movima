@@ -65,7 +65,7 @@ export class CreateUserUseCase implements UseCase<CreateUserDTO, Promise<CreateU
 
       await this.userRepository.save(user);
 
-      return right(Result.ok<void>());
+      return right(Result.ok<User>(user));
     } catch (err) {
       return left(new AppError.UnexpectedError(err)) as CreateUserResponse;
     }

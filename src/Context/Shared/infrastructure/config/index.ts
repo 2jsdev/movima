@@ -7,18 +7,18 @@ const config = convict({
     default: 'default',
     env: 'NODE_ENV',
   },
+  serverUrl: {
+    doc: 'The application server url.',
+    format: String,
+    default: 'http://127.0.0.1:4000',
+    env: 'SERVER_URL',
+  },
   app: {
     name: {
       doc: 'Application name.',
       format: String,
       default: 'Acme',
       env: 'APPLICATION_NAME',
-    },
-    serverUrl: {
-      doc: 'The application server url.',
-      format: String,
-      default: "http://127.0.0.1:4000",
-      env: 'APPLICATION_URL',
     },
     port: {
       doc: 'The application port.',

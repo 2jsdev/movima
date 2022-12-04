@@ -8,6 +8,8 @@ export interface UserRepository {
   exists(userEmail: UserEmail): Promise<boolean>;
   getUserByUserId(userId: string): Promise<User>;
   getUserByUserName(userName: UserName | string): Promise<User>;
+  getUserByActivationToken(activationToken: string): Promise<User>;
   save(user: User): Promise<void>;
   update(user: User): Promise<void>;
+  
 }

@@ -1,7 +1,7 @@
 const TYPES = {
   // Services
   AuthService: Symbol.for('AuthService'),
-  RedisClient: Symbol.for('RedisClient'),
+  EmailService: Symbol.for('EmailService'),
   // Use cases
   CreateUserUseCase: Symbol.for('CreateUserUseCase'),
   DeleteUserUseCase: Symbol.for('DeleteUserUseCase'),
@@ -11,10 +11,13 @@ const TYPES = {
   RefreshAccessTokenUseCase: Symbol.for('RefreshAccessTokenUseCase'),
   UpdateUserUseCase: Symbol.for('UpdateUserUseCase'),
 
+  ActivateAccountUseCase: Symbol.for('ActivateAccountUseCase'),
+  
   // Repositories
   UserRepository: Symbol.for('UserRepository'),
-
-  Middleware: Symbol.for('Middleware'),
+  
+  // Subscriptions
+  AfterUserCreated: Symbol.for('AfterUserCreated'),
 };
 
 export { TYPES };

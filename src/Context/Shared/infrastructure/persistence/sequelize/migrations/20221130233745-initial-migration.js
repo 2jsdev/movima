@@ -41,6 +41,31 @@ module.exports = {
             allowNull: false,
             defaultValue: false,
           },
+
+          activation_token: {
+            type: Sequelize.STRING,
+            allowNull: true,
+            defaultValue: null,
+          },
+          activation_token_sent_at: {
+            type: Sequelize.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.NOW,
+          },
+          activated_at: {
+            type: Sequelize.DATE,
+            allowNull: true
+          },
+    
+          reset_password_token: {
+            type: Sequelize.STRING,
+            allowNull: true,
+            defaultValue: null,
+          },
+          reset_password_token_sent_at: {
+            type: Sequelize.DATE,
+            allowNull: true,
+          },
         },
         {
           timestamps: false,

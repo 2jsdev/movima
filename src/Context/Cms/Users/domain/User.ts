@@ -2,7 +2,9 @@ import { UserId } from './UserId';
 import { UserName } from './UserName';
 import { UserEmail } from './UserEmail';
 import { UserPassword } from './UserPassword';
+import { VerificationToken } from './VerificationToken';
 import { JWTToken, RefreshToken } from './Jwt';
+import { Role } from './role';
 
 import { AggregateRoot } from '../../../Shared/domain/AggregateRoot';
 import { UniqueEntityID } from '../../../Shared/domain/UniqueEntityID';
@@ -13,7 +15,8 @@ import { Result } from './../../../Shared/core/Result';
 import { UserCreated } from './events/userCreated';
 import { UserLoggedIn } from './events/userLoggedIn';
 import { UserDeleted } from './events/userDeleted';
-import { Role } from './role';
+import { EmailVerified } from './events/emailVerified';
+import { PasswordResetTokenSent } from './events/passwordResetTokenSent';
 
 interface UserProps {
   email: UserEmail;
@@ -25,6 +28,13 @@ interface UserProps {
   refreshToken?: RefreshToken;
   isDeleted?: boolean;
   lastLogin?: Date;
+
+  activationToken?: VerificationToken;
+  activationTokenSentAt?: Date;
+  activatedAt?: Date;
+
+  resetPasswordToken?: VerificationToken;
+  resetPasswordTokenSentAt?: Date;
 }
 
 export class User extends AggregateRoot<UserProps> {
@@ -68,6 +78,23 @@ export class User extends AggregateRoot<UserProps> {
     return this.props.refreshToken;
   }
 
+  get activationToken(): VerificationToken {
+    return this.props.activationToken;
+  }
+  get activationTokenSentAt(): Date {
+    return this.props.activationTokenSentAt;
+  }
+  get activatedAt(): Date {
+    return this.props.activatedAt;
+  }
+
+  get resetPasswordToken(): VerificationToken {
+    return this.props.resetPasswordToken;
+  }
+  get resetPasswordTokenSentAt(): Date {
+    return this.props.resetPasswordTokenSentAt;
+  }
+
   public isLoggedIn(): boolean {
     return !!this.props.accessToken && !!this.props.refreshToken;
   }
@@ -84,6 +111,24 @@ export class User extends AggregateRoot<UserProps> {
       this.addDomainEvent(new UserDeleted(this));
       this.props.isDeleted = true;
     }
+  }
+
+  public verifyEmail(): void {
+    this.addDomainEvent(new EmailVerified(this));
+
+    this.props.isEmailVerified = true;
+    this.props.activationToken = null;
+    this.props.resetPasswordToken = null;
+    this.props.activatedAt = new Date();
+
+  }
+
+  public setResetPasswordToken(token: VerificationToken): void {
+    this.addDomainEvent(new PasswordResetTokenSent(this));
+
+    this.props.resetPasswordToken = token;
+    this.props.resetPasswordTokenSentAt = new Date();
+
   }
 
   private constructor(props: UserProps, id?: UniqueEntityID) {
@@ -104,9 +149,13 @@ export class User extends AggregateRoot<UserProps> {
     const user = new User(
       {
         ...props,
-        isDeleted: props.isDeleted ? props.isDeleted : false,
-        isEmailVerified: props.isEmailVerified ? props.isEmailVerified : false,
+        isDeleted: props.isDeleted || false,
+        isEmailVerified: props.isEmailVerified || false,
         role: props.role ? props.role : 'USER',
+
+        activationToken: VerificationToken.create().getValue(),
+        activationTokenSentAt: props.activationTokenSentAt || new Date(),
+        // activatedAt: props.activatedAt || null,
       },
       id,
     );

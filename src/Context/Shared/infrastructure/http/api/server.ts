@@ -10,8 +10,8 @@ import { container } from '../../ioc/container';
 
 import '../../../../FileStorage/infrastructure/http/api/controllers';
 import '../../../../Cms/Users/infrastructure/http/api/controllers';
-
 import '../../persistence/sequelize';
+import '../../../../Cms/Users/domain/subscriptions';
 
 class Server {
   private server;
@@ -23,7 +23,12 @@ class Server {
   }
   start(): void {
     this.server.setConfig((app) => {
-      app.use(cors());
+      app.use(
+        cors({
+          origin: 'http://localhost:3000',
+          credentials: true,
+        }),
+      );
       app.use(helmet());
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,7 +43,8 @@ class Server {
     const application = this.server.build();
 
     application.listen(this.port, () => {
-      console.log(`[App]: The App is running at ${config.get('app.serverUrl')}`);
+      console.log("🚀 ~ file: server.ts:48 ~ Server ~ application.listen ~ config.get('serverUrl')", config.get('serverUrl'))
+      console.log(`[App]: The App is running at ${config.get('serverUrl')}`);
       console.log('[App]: Press CTRL-C to stop\n');
     });
   }

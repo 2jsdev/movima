@@ -20,7 +20,7 @@ export class UploadFilesUseCase implements UseCase<UploadFilesRequestDTO, Promis
   private async saveLocally(filesToSave, collectionIdOrName, recordId): Promise<File[]> {
     const files = await Promise.all(
       filesToSave.map(async (file) => {
-        const path = `${config.get('app.url')}/api/files/${collectionIdOrName}/${recordId}/${file.originalname}`;
+        const path = `${config.get('serverUrl')}/api/files/${collectionIdOrName}/${recordId}/${file.originalname}`;
         try {
           return await this.fileRepository.search(path);
         } catch (error) {

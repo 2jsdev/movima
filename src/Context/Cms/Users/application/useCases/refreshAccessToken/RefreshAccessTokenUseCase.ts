@@ -33,7 +33,7 @@ export class RefreshAccessTokenUseCase implements UseCase<RefreshAccessTokenDTO,
 
       try {
         // get the user by username
-        user = await this.userRepository.getUserByUserName(username);
+        user = await this.userRepository.getUserByActivationToken(username);
       } catch (err) {
         return left(new RefreshAccessTokenErrors.UserNotFoundOrDeletedError());
       }

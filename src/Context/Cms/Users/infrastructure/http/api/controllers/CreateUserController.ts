@@ -10,6 +10,7 @@ import { DecodedExpressRequest } from '../models/decodedRequest';
 import { TYPES } from '../../../constants/types';
 import isAuthenticated from '../../../../../../Shared/infrastructure/http/api/middlewares/isAuthenticated';
 import isAuthorized from '../../../../../../Shared/infrastructure/http/api/middlewares/isAuthorized';
+import { UserMapper } from '../../../persistence/sequelize/UserMapper';
 
 @controller('/api/collections')
 export class CreateUserController extends BaseController {
@@ -17,10 +18,7 @@ export class CreateUserController extends BaseController {
     super();
   }
 
-  @httpPost(
-    '/users/records',
-    //  isAuthenticated, isAuthorized({ hasRole: ['ADMIN'] })
-  )
+  @httpPost('/users/records', isAuthenticated, isAuthorized({ hasRole: ['ADMIN'] }))
   async executeImpl(req: DecodedExpressRequest, res: Response): Promise<any> {
     let dto: CreateUserDTO = req.body as CreateUserDTO;
 
@@ -46,7 +44,10 @@ export class CreateUserController extends BaseController {
             return this.fail(res, error.getErrorValue().message);
         }
       } else {
-        return this.ok(res);
+        const user = result.value.getValue();
+        return this.ok(res, {
+          user: UserMapper.toDTO(user),
+        });
       }
     } catch (err) {
       return this.fail(res, err);

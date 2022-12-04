@@ -3,6 +3,8 @@ import './DeleteUserController';
 import './GetLoggedInUserController';
 import './GetUserByUserIdController';
 import './LoginController';
+import './RegisterController';
 import './LogoutController';
 import './RefreshAccessTokenController';
 import './UpdateUserController';
+import './ActivateAccountController';

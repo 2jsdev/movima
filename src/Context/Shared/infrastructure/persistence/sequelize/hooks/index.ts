@@ -8,7 +8,15 @@ const dispatchEventsCallback = (model, primaryKeyField: string) => {
 };
 
 (async function createHooksForAggregateRoots() {
-  const { File } = models;
+  const { User, File } = models;
+
+  User.addHook('afterCreate', (m: any) => {
+    dispatchEventsCallback(m, 'user_id');
+  });
+  User.addHook('afterDestroy', (m: any) => dispatchEventsCallback(m, 'user_id'));
+  User.addHook('afterUpdate', (m: any) => dispatchEventsCallback(m, 'user_id'));
+  User.addHook('afterSave', (m: any) => dispatchEventsCallback(m, 'user_id'));
+  User.addHook('afterUpsert', (m: any) => dispatchEventsCallback(m, 'user_id'));
 
   File.addHook('afterCreate', (m: any) => dispatchEventsCallback(m, 'id'));
   File.addHook('afterDestroy', (m: any) => dispatchEventsCallback(m, 'id'));
