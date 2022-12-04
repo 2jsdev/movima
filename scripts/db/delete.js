@@ -13,8 +13,8 @@ const config = {
   password: DATABASE_PASSWORD,
 };
 
-pgtools.dropdb(config, dbName, function (err, res) {
-  if (err && err.name == 'invalid_catalog_name') {
+pgtools.dropdb(config, dbName, function (error, res) {
+  if (error && error.name == 'invalid_catalog_name') {
     console.error(`[DATABASE]: database ${dbName} does not exist.`);
     process.exit(0);
   }

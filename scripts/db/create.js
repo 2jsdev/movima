@@ -13,8 +13,8 @@ const config = {
   password: DATABASE_PASSWORD,
 };
 
-pgtools.createdb(config, dbName, function (err, res) {
-  if (err && err.name == 'duplicate_database') {
+pgtools.createdb(config, dbName, function (error, res) {
+  if (error && error.name == 'duplicate_database') {
     console.error(`[DATABASE]: database ${dbName} already exists.`);
     process.exit(0);
   }
