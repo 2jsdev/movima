@@ -29,7 +29,7 @@ const createModels = () => {
 
   fs.readdirSync(path.join(__dirname, './'))
     .filter((t) => (~t.indexOf('.ts') || ~t.indexOf('.js')) && !~t.indexOf('index') && !~t.indexOf('.map'))
-    .map((file) => {
+    .forEach((file) => {
       const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
       const modelName = toCamelCase(model.name);
       models[modelName] = model;

@@ -1,1 +1,1 @@
-import './FileUploadController';
+import './UploadFileController';

@@ -3,11 +3,11 @@ import * as express from 'express';
 
 @injectable()
 export abstract class BaseController {
-  protected abstract handle(req: express.Request, res: express.Response): Promise<void | any>;
+  protected abstract executeImpl(req: express.Request, res: express.Response): Promise<void | any>;
 
   public async execute(req: express.Request, res: express.Response): Promise<void> {
     try {
-      await this.handle(req, res);
+      await this.executeImpl(req, res);
     } catch (err) {
       console.log(`[BaseController]: Uncaught controller error`);
       console.log(err);

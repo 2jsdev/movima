@@ -9,6 +9,7 @@ import config from '../../config';
 import { container } from '../../ioc/container';
 
 import '../../../../FileStorage/infrastructure/http/api/controllers';
+import '../../../../Cms/Users/infrastructure/http/api/controllers';
 
 import '../../persistence/sequelize';
 
@@ -37,7 +38,7 @@ class Server {
     const application = this.server.build();
 
     application.listen(this.port, () => {
-      console.log(`[App]: The App is running at http://localhost:${config.get('app.port')}`);
+      console.log(`[App]: The App is running at ${config.get('app.serverUrl')}`);
       console.log('[App]: Press CTRL-C to stop\n');
     });
   }

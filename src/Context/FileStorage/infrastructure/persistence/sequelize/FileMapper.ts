@@ -3,7 +3,7 @@ import { Mapper } from '../../../../Shared/infrastructure/Mapper';
 import { File } from '../../../domain/File';
 
 export class FileMapper implements Mapper<File> {
-  public static toResponse(file: File): any {
+  public static toDTO(file: File): any {
     return {
       id: file.fileId.id.toString(),
       filename: file.filename,
