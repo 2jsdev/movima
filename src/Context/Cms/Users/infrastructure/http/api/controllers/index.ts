@@ -9,3 +9,5 @@ import './RefreshAccessTokenController';
 import './UpdateUserController';
 import './ActivateAccountController';
 import './ResendActivationLinkController';
+import './ResetPasswordLinkController';
+import './ResetPasswordController';

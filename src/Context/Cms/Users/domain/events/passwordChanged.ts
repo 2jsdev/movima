@@ -2,7 +2,7 @@ import { User } from './../User';
 import { IDomainEvent } from '../../../../Shared/domain/events/IDomainEvent';
 import { UniqueEntityID } from '../../../../Shared/domain/UniqueEntityID';
 
-export class PasswordResetTokenSent implements IDomainEvent {
+export class PasswordChanged implements IDomainEvent {
   public dateTimeOccurred: Date;
   public user: User;
 
@@ -11,7 +11,7 @@ export class PasswordResetTokenSent implements IDomainEvent {
     this.user = user;
   }
 
-  getAggregateId(): UniqueEntityID {
+  public getAggregateId(): UniqueEntityID {
     return this.user.id;
   }
 }

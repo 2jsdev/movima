@@ -16,8 +16,9 @@ import { UserCreated } from './events/userCreated';
 import { UserLoggedIn } from './events/userLoggedIn';
 import { UserDeleted } from './events/userDeleted';
 import { EmailVerified } from './events/emailVerified';
-import { PasswordResetTokenSent } from './events/passwordResetTokenSent';
+import { PasswordResetTokenChanged } from './events/passwordResetTokenChanged';
 import { ActivationTokenChanged } from './events/activationTokenChanged';
+import { PasswordChanged } from './events/passwordChanged';
 
 interface UserProps {
   email: UserEmail;
@@ -124,18 +125,28 @@ export class User extends AggregateRoot<UserProps> {
     this.props.resetPasswordToken = null;
   }
 
+  public changePassword(password: UserPassword): void {
+    this.addDomainEvent(new PasswordChanged(this));
+
+    this.props.password = password;
+    this.props.activationToken = null;
+    this.props.resetPasswordToken = null
+  }
+
   public setActivationToken(): void {
     this.addDomainEvent(new ActivationTokenChanged(this));
 
     this.props.activationToken = VerificationToken.create().getValue();
     this.props.activationTokenSentAt = new Date();
+    this.props.resetPasswordToken = null;
   }
 
-  public setResetPasswordToken(token: VerificationToken): void {
-    this.addDomainEvent(new PasswordResetTokenSent(this));
-    
-    this.props.resetPasswordToken = token;
+  public setResetPasswordToken(): void {
+    this.addDomainEvent(new PasswordResetTokenChanged(this));
+
+    this.props.resetPasswordToken = VerificationToken.create().getValue();
     this.props.resetPasswordTokenSentAt = new Date();
+    this.props.activationToken = null;
   }
 
   private constructor(props: UserProps, id?: UniqueEntityID) {

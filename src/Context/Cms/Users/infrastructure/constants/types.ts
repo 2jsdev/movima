@@ -10,9 +10,10 @@ const TYPES = {
   LogoutUseCase: Symbol.for('LogoutUseCase'),
   RefreshAccessTokenUseCase: Symbol.for('RefreshAccessTokenUseCase'),
   UpdateUserUseCase: Symbol.for('UpdateUserUseCase'),
-  ResendActivationLinkUseCase: Symbol.for('ResendActivationLinkUseCase'),
-
   ActivateAccountUseCase: Symbol.for('ActivateAccountUseCase'),
+  ResendActivationLinkUseCase: Symbol.for('ResendActivationLinkUseCase'),
+  ResetPasswordLinkUseCase: Symbol.for('ResetPasswordLinkUseCase'),
+  ResetPasswordUseCase: Symbol.for('ResetPasswordUseCase'),
 
   // Repositories
   UserRepository: Symbol.for('UserRepository'),
