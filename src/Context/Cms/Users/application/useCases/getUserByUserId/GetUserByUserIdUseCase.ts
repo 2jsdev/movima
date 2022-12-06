@@ -18,7 +18,6 @@ export class GetUserByUserIdUseCase implements UseCase<GetUserByUserIdDTO, Promi
 
   public async execute(request: GetUserByUserIdDTO): Promise<GetUserByUserIdResponse> {
     try {
-
       const user = await this.userRepository.getUserByUserId(request.id);
       const userFound = !!user === true;
 

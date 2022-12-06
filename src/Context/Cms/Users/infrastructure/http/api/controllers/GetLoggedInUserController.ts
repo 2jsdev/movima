@@ -10,9 +10,7 @@ import { TYPES } from '../../../constants/types';
 
 @controller('/api/auth')
 export class GetLoggedInUserController extends BaseController {
-  constructor(
-    @inject(TYPES.GetUserByUserIdUseCase) private useCase: GetUserByUserIdUseCase,
-  ) {
+  constructor(@inject(TYPES.GetUserByUserIdUseCase) private useCase: GetUserByUserIdUseCase) {
     super();
   }
 

@@ -12,8 +12,7 @@ export class AfterPasswordChanged implements IHandle<PasswordChanged> {
 
   constructor() {
     this.setupSubscriptions();
-    this.authService =  container.get<AuthService>(TYPES.AuthService);
-    ;
+    this.authService = container.get<AuthService>(TYPES.AuthService);
   }
 
   setupSubscriptions(): void {

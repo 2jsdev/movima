@@ -68,4 +68,4 @@ class MailgunService implements EmailService {
 
 const mailgunService = new MailgunService();
 
-export default new MailgunService()
+export default new MailgunService();

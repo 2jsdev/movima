@@ -31,7 +31,7 @@ export class ResetPasswordController extends BaseController {
         }
       } else {
         return this.ok(res, {
-          message: "Your password has been successfully updated. Please go to the Login Page to Sign In again",
+          message: 'Your password has been successfully updated. Please go to the Login Page to Sign In again',
         });
       }
     } catch (error) {

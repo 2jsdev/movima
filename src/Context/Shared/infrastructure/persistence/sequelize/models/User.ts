@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       activated_at: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: true,
       },
 
       reset_password_token: {

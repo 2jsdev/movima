@@ -6,9 +6,9 @@ import { PasswordResetTokenChanged } from '../events/passwordResetTokenChanged';
 
 @injectable()
 export class AfterPasswordResetTokenChanged implements IHandle<PasswordResetTokenChanged> {
-  private emailService: EmailService
+  private emailService: EmailService;
 
-  constructor (emailService: EmailService) {
+  constructor(emailService: EmailService) {
     this.setupSubscriptions();
     this.emailService = emailService;
   }
@@ -23,9 +23,13 @@ export class AfterPasswordResetTokenChanged implements IHandle<PasswordResetToke
 
     try {
       await this.emailService.sendResetPasswordLinkEmail(user);
-      console.log(`[AfterPasswordResetTokenChanged]: Successfully executed sendResetPasswordLinkEmail use case AfterPasswordResetTokenChanged`);
+      console.log(
+        `[AfterPasswordResetTokenChanged]: Successfully executed sendResetPasswordLinkEmail use case AfterPasswordResetTokenChanged`,
+      );
     } catch (error) {
-      console.log(`[AfterPasswordResetTokenChanged]: Failed to execute sendResetPasswordLinkEmail use case AfterPasswordResetTokenChanged.`);
+      console.log(
+        `[AfterPasswordResetTokenChanged]: Failed to execute sendResetPasswordLinkEmail use case AfterPasswordResetTokenChanged.`,
+      );
     }
   }
 }

@@ -23,7 +23,7 @@ export class RegisterController extends BaseController {
       username: TextUtils.sanitize(dto.username),
       email: TextUtils.sanitize(dto.email),
       password: dto.password,
-      role: "USER",
+      role: 'USER',
     };
 
     try {

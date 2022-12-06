@@ -9,7 +9,9 @@ import { ResendActivationLinkResponse } from './ResendActivationLinkResponse';
 import { TYPES } from '../../../infrastructure/constants/types';
 
 @injectable()
-export class ResendActivationLinkUseCase implements UseCase<ResendActivationLinkDTO, Promise<ResendActivationLinkResponse>> {
+export class ResendActivationLinkUseCase
+  implements UseCase<ResendActivationLinkDTO, Promise<ResendActivationLinkResponse>>
+{
   constructor(@inject(TYPES.UserRepository) private userRepository: UserRepository) {}
 
   async execute(request: ResendActivationLinkDTO): Promise<ResendActivationLinkResponse> {
@@ -28,7 +30,7 @@ export class ResendActivationLinkUseCase implements UseCase<ResendActivationLink
       }
 
       user.setActivationToken();
-      
+
       await this.userRepository.update(user);
       return right(Result.ok<void>());
     } catch (error) {

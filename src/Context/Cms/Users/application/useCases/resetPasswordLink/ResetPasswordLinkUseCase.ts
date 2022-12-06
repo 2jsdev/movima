@@ -22,7 +22,7 @@ export class ResetPasswordLinkUseCase implements UseCase<ResetPasswordLinkDTO, P
       }
 
       user.setResetPasswordToken();
-      
+
       await this.userRepository.update(user);
       return right(Result.ok<void>());
     } catch (error) {

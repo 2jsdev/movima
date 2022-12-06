@@ -14,5 +14,4 @@ redisConnection.on('connect', () => {
   console.log(`[REDIS]: Connected to redis server at ${host}:${port}`);
 });
 
-
 export { redisConnection };

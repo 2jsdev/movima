@@ -6,9 +6,9 @@ import { UserCreated } from '../events/userCreated';
 
 @injectable()
 export class AfterUserCreated implements IHandle<UserCreated> {
-  private emailService: EmailService
+  private emailService: EmailService;
 
-  constructor (emailService: EmailService) {
+  constructor(emailService: EmailService) {
     this.setupSubscriptions();
     this.emailService = emailService;
   }

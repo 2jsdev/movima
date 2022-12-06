@@ -9,7 +9,7 @@ export namespace UpdateUserErrors {
       } as UseCaseError);
     }
   }
-  
+
   export class EmailAlreadyExistsError extends Result<UseCaseError> {
     constructor(email: string) {
       super(false, {

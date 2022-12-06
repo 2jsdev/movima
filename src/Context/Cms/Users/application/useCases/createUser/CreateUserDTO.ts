@@ -1,4 +1,4 @@
-import { Role } from "../../../domain/role";
+import { Role } from '../../../domain/role';
 
 export interface CreateUserDTO {
   username: string;

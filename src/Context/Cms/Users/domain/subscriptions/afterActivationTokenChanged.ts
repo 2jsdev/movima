@@ -6,9 +6,9 @@ import { ActivationTokenChanged } from '../events/activationTokenChanged';
 
 @injectable()
 export class AfterActivationTokenChanged implements IHandle<ActivationTokenChanged> {
-  private emailService: EmailService
+  private emailService: EmailService;
 
-  constructor (emailService: EmailService) {
+  constructor(emailService: EmailService) {
     this.setupSubscriptions();
     this.emailService = emailService;
   }
@@ -23,9 +23,13 @@ export class AfterActivationTokenChanged implements IHandle<ActivationTokenChang
 
     try {
       await this.emailService.resendActivationLink(user);
-      console.log(`[AfterActivationTokenChanged]: Successfully executed resendActivationLink use case AfterActivationTokenChanged`);
+      console.log(
+        `[AfterActivationTokenChanged]: Successfully executed resendActivationLink use case AfterActivationTokenChanged`,
+      );
     } catch (error) {
-      console.log(`[AfterActivationTokenChanged]: Failed to execute resendActivationLink use case AfterActivationTokenChanged.`);
+      console.log(
+        `[AfterActivationTokenChanged]: Failed to execute resendActivationLink use case AfterActivationTokenChanged.`,
+      );
     }
   }
 }

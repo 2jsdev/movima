@@ -29,7 +29,7 @@ export class ResetPasswordUseCase implements UseCase<ResetPasswordDTO, Promise<R
 
       const password = passwordOrError.getValue();
 
-      user.changePassword(password)
+      user.changePassword(password);
 
       await this.userRepository.update(user);
       return right(Result.ok<void>());

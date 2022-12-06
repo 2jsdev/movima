@@ -130,7 +130,7 @@ export class User extends AggregateRoot<UserProps> {
 
     this.props.password = password;
     this.props.activationToken = null;
-    this.props.resetPasswordToken = null
+    this.props.resetPasswordToken = null;
   }
 
   public setActivationToken(): void {
