@@ -22,11 +22,11 @@ export class LoginUserUseCase implements UseCase<LoginDTO, Promise<LoginResponse
 
   public async execute(request: LoginDTO): Promise<LoginResponse> {
     let user: User;
-    let userName: UserName;
+    let username: UserName;
     let password: UserPassword;
 
     try {
-      const usernameOrError = UserName.create({ name: request.username });
+      const usernameOrError = UserName.create({ value: request.username });
       const passwordOrError = UserPassword.create({ value: request.password });
       const payloadResult = Result.combine([usernameOrError, passwordOrError]);
 
@@ -34,10 +34,10 @@ export class LoginUserUseCase implements UseCase<LoginDTO, Promise<LoginResponse
         return left(Result.fail<any>(payloadResult.getErrorValue()));
       }
 
-      userName = usernameOrError.getValue();
+      username = usernameOrError.getValue();
       password = passwordOrError.getValue();
 
-      user = await this.userRepository.getUserByUserName(userName);
+      user = await this.userRepository.search({ username: username.value.toString() });
       const userFound = !!user;
 
       if (!userFound) {
@@ -70,8 +70,8 @@ export class LoginUserUseCase implements UseCase<LoginDTO, Promise<LoginResponse
           refreshToken,
         }),
       );
-    } catch (err) {
-      return left(new AppError.UnexpectedError(err.toString()));
+    } catch (error) {
+      return left(new AppError.UnexpectedError(error.toString()));
     }
   }
 }

@@ -1,11 +1,10 @@
 import { inject } from 'inversify';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { controller, httpPost } from 'inversify-express-utils';
 import { LoginUserUseCase } from '../../../../application/useCases/login/LoginUseCase';
 import { LoginDTO, LoginDTOResponse } from '../../../../application/useCases/login/LoginDTO';
 import { LoginUseCaseErrors } from '../../../../application/useCases/login/LoginErrors';
 import { BaseController } from '../../../../../../Shared/infrastructure/http/api/models/BaseController';
-import { DecodedExpressRequest } from './../models/decodedRequest';
 import { TYPES } from '../../../constants/types';
 
 @controller('/api/auth')
@@ -15,7 +14,7 @@ export class LoginController extends BaseController {
   }
 
   @httpPost('/login')
-  async executeImpl(req: DecodedExpressRequest, res: Response): Promise<any> {
+  async executeImpl(req: Request, res: Response): Promise<any> {
     const dto: LoginDTO = req.body as LoginDTO;
 
     try {
@@ -36,8 +35,8 @@ export class LoginController extends BaseController {
         const dto: LoginDTOResponse = result.value.getValue() as LoginDTOResponse;
         return this.ok<LoginDTOResponse>(res, dto);
       }
-    } catch (err) {
-      return this.fail(res, err);
+    } catch (error) {
+      return this.fail(res, error);
     }
   }
 }

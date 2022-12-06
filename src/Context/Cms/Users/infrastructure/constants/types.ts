@@ -10,12 +10,13 @@ const TYPES = {
   LogoutUseCase: Symbol.for('LogoutUseCase'),
   RefreshAccessTokenUseCase: Symbol.for('RefreshAccessTokenUseCase'),
   UpdateUserUseCase: Symbol.for('UpdateUserUseCase'),
+  ResendActivationLinkUseCase: Symbol.for('ResendActivationLinkUseCase'),
 
   ActivateAccountUseCase: Symbol.for('ActivateAccountUseCase'),
-  
+
   // Repositories
   UserRepository: Symbol.for('UserRepository'),
-  
+
   // Subscriptions
   AfterUserCreated: Symbol.for('AfterUserCreated'),
 };

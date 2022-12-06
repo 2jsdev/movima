@@ -19,7 +19,7 @@ export class UserMapper implements Mapper<User> {
   }
 
   public static toDomain(raw: any): User {
-    const userNameOrError = UserName.create({ name: raw.username });
+    const userNameOrError = UserName.create({ value: raw.username });
     const userPasswordOrError = UserPassword.create({ value: raw.user_password, hashed: true });
     const userEmailOrError = UserEmail.create(raw.user_email);
     const activationTokenOrError = VerificationToken.create(raw.activation_token);

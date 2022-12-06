@@ -20,7 +20,7 @@ export class CreateUserUseCase implements UseCase<CreateUserDTO, Promise<CreateU
   async execute(request: CreateUserDTO): Promise<CreateUserResponse> {
     const emailOrError = UserEmail.create(request.email);
     const passwordOrError = UserPassword.create({ value: request.password });
-    const usernameOrError = UserName.create({ name: request.username });
+    const usernameOrError = UserName.create({ value: request.username });
 
     const dtoResult = Result.combine([emailOrError, passwordOrError, usernameOrError]);
 
@@ -41,14 +41,14 @@ export class CreateUserUseCase implements UseCase<CreateUserDTO, Promise<CreateU
       }
 
       try {
-        const alreadyCreatedUserByUserName = await this.userRepository.getUserByUserName(username);
+        const alreadyCreatedUserByUserName = await this.userRepository.search({ username: username.value.toString() });
 
         const userNameTaken = !!alreadyCreatedUserByUserName === true;
 
         if (userNameTaken) {
           return left(new CreateUserErrors.UsernameTakenError(username.value)) as CreateUserResponse;
         }
-      } catch (err) {}
+      } catch (error) {}
 
       const userOrError: Result<User> = User.create({
         email,
@@ -66,8 +66,8 @@ export class CreateUserUseCase implements UseCase<CreateUserDTO, Promise<CreateU
       await this.userRepository.save(user);
 
       return right(Result.ok<User>(user));
-    } catch (err) {
-      return left(new AppError.UnexpectedError(err)) as CreateUserResponse;
+    } catch (error) {
+      return left(new AppError.UnexpectedError(error)) as CreateUserResponse;
     }
   }
 }

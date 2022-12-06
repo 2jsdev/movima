@@ -1,9 +1,8 @@
 import { inject } from 'inversify';
 import { Request, Response } from 'express';
 import { controller, httpPost } from 'inversify-express-utils';
-import { ActivateAccountUseCase } from '../../../../application/useCases/activateAccount/ActivateAccountCase';
+import { ActivateAccountUseCase } from '../../../../application/useCases/activateAccount/ActivateAccountUseCase';
 import { ActivateAccountDTO } from '../../../../application/useCases/activateAccount/ActivateAccountDTO';
-import { TextUtils } from '../../../../../../Shared/infrastructure/utils/TextUtils';
 import { ActivateAccountErrors } from '../../../../application/useCases/activateAccount/ActivateAccountErrors';
 import { BaseController } from '../../../../../../Shared/infrastructure/http/api/models/BaseController';
 import { TYPES } from '../../../constants/types';
@@ -16,8 +15,7 @@ export class AccountActivateController extends BaseController {
 
   @httpPost('/account-activate')
   async executeImpl(req: Request, res: Response): Promise<any> {
-    let dto: ActivateAccountDTO = req.query as ActivateAccountDTO;
-
+    let dto: ActivateAccountDTO = req.body as ActivateAccountDTO;
 
     try {
       const result = await this.useCase.execute(dto);
@@ -32,10 +30,12 @@ export class AccountActivateController extends BaseController {
             return this.fail(res, error.getErrorValue().message);
         }
       } else {
-        return this.ok(res);
+        return this.ok(res, {
+          message: 'Your account has been activated. Please proceed to the Login page to Sign In',
+        });
       }
-    } catch (err) {
-      return this.fail(res, err);
+    } catch (error) {
+      return this.fail(res, error);
     }
   }
 }

@@ -38,8 +38,8 @@ export class UpdateUserController extends BaseController {
       } else {
         return this.ok(res);
       }
-    } catch (err) {
-      return this.fail(res, err);
+    } catch (error) {
+      return this.fail(res, error);
     }
   }
 }

@@ -13,6 +13,12 @@ const config = convict({
     default: 'http://127.0.0.1:4000',
     env: 'SERVER_URL',
   },
+  appUrl: {
+    doc: 'Application url.',
+    format: String,
+    default: 'http://localhost:3000',
+    env: 'APPLICATION_URL',
+  },
   app: {
     name: {
       doc: 'Application name.',

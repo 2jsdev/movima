@@ -27,14 +27,14 @@ export class RefreshAccessTokenUseCase implements UseCase<RefreshAccessTokenDTO,
       // Get the username for the user that owns the refresh token
       try {
         username = await this.authService.getUserNameFromRefreshToken(refreshToken);
-      } catch (err) {
+      } catch (error) {
         return left(new RefreshAccessTokenErrors.RefreshTokenNotFound());
       }
 
       try {
         // get the user by username
-        user = await this.userRepository.getUserByActivationToken(username);
-      } catch (err) {
+        user = await this.userRepository.search({ username });
+      } catch (error) {
         return left(new RefreshAccessTokenErrors.UserNotFoundOrDeletedError());
       }
 
@@ -54,8 +54,8 @@ export class RefreshAccessTokenUseCase implements UseCase<RefreshAccessTokenDTO,
 
       // return the new access token
       return right(Result.ok<JWTToken>(accessToken));
-    } catch (err) {
-      return left(new AppError.UnexpectedError(err));
+    } catch (error) {
+      return left(new AppError.UnexpectedError(error));
     }
   }
 }

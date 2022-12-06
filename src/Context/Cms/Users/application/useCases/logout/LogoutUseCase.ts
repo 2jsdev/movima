@@ -24,15 +24,15 @@ export class LogoutUseCase implements UseCase<LogoutDTO, Promise<LogoutResponse>
     try {
       try {
         user = await this.userRepository.getUserByUserId(userId);
-      } catch (err) {
+      } catch (error) {
         return left(new LogoutErrors.UserNotFoundOrDeletedError());
       }
 
       await this.authService.deAuthenticateUser(user.username.value);
 
       return right(Result.ok<void>());
-    } catch (err) {
-      return left(new AppError.UnexpectedError(err));
+    } catch (error) {
+      return left(new AppError.UnexpectedError(error));
     }
   }
 }

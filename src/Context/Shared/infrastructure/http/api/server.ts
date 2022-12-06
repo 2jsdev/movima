@@ -25,7 +25,7 @@ class Server {
     this.server.setConfig((app) => {
       app.use(
         cors({
-          origin: 'http://localhost:3000',
+          origin: config.get('appUrl'),
           credentials: true,
         }),
       );
@@ -43,7 +43,6 @@ class Server {
     const application = this.server.build();
 
     application.listen(this.port, () => {
-      console.log("🚀 ~ file: server.ts:48 ~ Server ~ application.listen ~ config.get('serverUrl')", config.get('serverUrl'))
       console.log(`[App]: The App is running at ${config.get('serverUrl')}`);
       console.log('[App]: Press CTRL-C to stop\n');
     });

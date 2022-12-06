@@ -49,8 +49,8 @@ export class CreateUserController extends BaseController {
           user: UserMapper.toDTO(user),
         });
       }
-    } catch (err) {
-      return this.fail(res, err);
+    } catch (error) {
+      return this.fail(res, error);
     }
   }
 }

@@ -35,8 +35,8 @@ export class UserPassword extends ValueObject<IUserPasswordProps> {
 
   private bcryptCompare(plainText: string, hashed: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(plainText, hashed, (err, compareResult) => {
-        if (err) return resolve(false);
+      bcrypt.compare(plainText, hashed, (error, compareResult) => {
+        if (error) return resolve(false);
         return resolve(compareResult);
       });
     });
@@ -48,8 +48,8 @@ export class UserPassword extends ValueObject<IUserPasswordProps> {
 
   private hashPassword(password: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      bcrypt.hash(password, 8, (err, hash) => {
-        if (err) return reject(err);
+      bcrypt.hash(password, 8, (error, hash) => {
+        if (error) return reject(error);
         resolve(hash);
       });
     });

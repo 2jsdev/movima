@@ -1,9 +1,8 @@
-import { inject, injectable } from 'inversify';
+import { injectable } from 'inversify';
 import { IHandle } from '../../../../Shared/domain/events/IHandle';
 import { EmailService } from '../../application/services/emailService';
 import { DomainEvents } from '../../../../Shared/domain/events/DomainEvents';
 import { UserCreated } from '../events/userCreated';
-import { TYPES } from '../../infrastructure/constants/types';
 
 @injectable()
 export class AfterUserCreated implements IHandle<UserCreated> {
@@ -25,7 +24,7 @@ export class AfterUserCreated implements IHandle<UserCreated> {
     try {
       await this.emailService.sendAccountActivationEmail(user);
       console.log(`[AfterUserCreated]: Successfully executed sendAccountActivationEmail use case AfterUserCreated`);
-    } catch (err) {
+    } catch (error) {
       console.log(`[AfterUserCreated]: Failed to execute sendAccountActivationEmail use case AfterUserCreated.`);
     }
   }

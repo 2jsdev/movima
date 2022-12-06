@@ -26,8 +26,8 @@ export class DeleteUserUseCase implements UseCase<DeleteUserDTO, Promise<DeleteU
       await this.userRepository.save(user);
 
       return right(Result.ok<void>());
-    } catch (err) {
-      return left(new AppError.UnexpectedError(err));
+    } catch (error) {
+      return left(new AppError.UnexpectedError(error));
     }
   }
 }

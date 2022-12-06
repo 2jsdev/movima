@@ -27,8 +27,8 @@ export class GetUserByUserIdUseCase implements UseCase<GetUserByUserIdDTO, Promi
       }
 
       return right(Result.ok<User>(user));
-    } catch (err) {
-      return left(new AppError.UnexpectedError(err));
+    } catch (error) {
+      return left(new AppError.UnexpectedError(error));
     }
   }
 }

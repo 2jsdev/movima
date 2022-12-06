@@ -11,7 +11,8 @@ import { LoginUserUseCase } from '../../application/useCases/login/LoginUseCase'
 import { LogoutUseCase } from '../../application/useCases/logout/LogoutUseCase';
 import { RefreshAccessTokenUseCase } from '../../application/useCases/refreshAccessToken/RefreshAccessTokenUseCase';
 import { UpdateUserUseCase } from '../../application/useCases/updateUser/UpdateUserUseCase';
-import { ActivateAccountUseCase } from '../../application/useCases/activateAccount/ActivateAccountCase';
+import { ActivateAccountUseCase } from '../../application/useCases/activateAccount/ActivateAccountUseCase';
+import { ResendActivationLinkUseCase } from '../../application/useCases/resendActivationLink/ResendActivationLinkUseCase';
 
 // Repositories
 import { SequelizeUserRepository } from '../persistence/sequelize/SequelizeUserRepository';
@@ -33,6 +34,7 @@ container.bind<LogoutUseCase>(TYPES.LogoutUseCase).to(LogoutUseCase);
 container.bind<RefreshAccessTokenUseCase>(TYPES.RefreshAccessTokenUseCase).to(RefreshAccessTokenUseCase);
 container.bind<UpdateUserUseCase>(TYPES.UpdateUserUseCase).to(UpdateUserUseCase);
 container.bind<ActivateAccountUseCase>(TYPES.ActivateAccountUseCase).to(ActivateAccountUseCase);
+container.bind<ResendActivationLinkUseCase>(TYPES.ResendActivationLinkUseCase).to(ResendActivationLinkUseCase);
 
 // Repositories
 container.bind(TYPES.UserRepository).to(SequelizeUserRepository).inSingletonScope();

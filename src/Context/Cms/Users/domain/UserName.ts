@@ -3,7 +3,7 @@ import { Result } from '../../../Shared/core/Result';
 import { ValueObject } from '../../../Shared/domain/ValueObject';
 
 interface UserNameProps {
-  name: string;
+  value: string;
 }
 
 export class UserName extends ValueObject<UserNameProps> {
@@ -11,7 +11,7 @@ export class UserName extends ValueObject<UserNameProps> {
   public static minLength: number = 2;
 
   get value(): string {
-    return this.props.name;
+    return this.props.value;
   }
 
   private constructor(props: UserNameProps) {
@@ -19,17 +19,17 @@ export class UserName extends ValueObject<UserNameProps> {
   }
 
   public static create(props: UserNameProps): Result<UserName> {
-    const usernameResult = Guard.againstNullOrUndefined(props.name, 'username');
+    const usernameResult = Guard.againstNullOrUndefined(props.value, 'username');
     if (usernameResult.isFailure) {
       return Result.fail<UserName>(usernameResult.getErrorValue());
     }
 
-    const minLengthResult = Guard.againstAtLeast(this.minLength, props.name);
+    const minLengthResult = Guard.againstAtLeast(this.minLength, props.value);
     if (minLengthResult.isFailure) {
       return Result.fail<UserName>(minLengthResult.getErrorValue());
     }
 
-    const maxLengthResult = Guard.againstAtMost(this.maxLength, props.name);
+    const maxLengthResult = Guard.againstAtMost(this.maxLength, props.value);
     if (maxLengthResult.isFailure) {
       return Result.fail<UserName>(minLengthResult.getErrorValue());
     }

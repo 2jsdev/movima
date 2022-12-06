@@ -62,8 +62,8 @@ export class RedisAuthService implements AuthService {
 
   public decodeJWT(token: string): Promise<JWTClaims> {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, config.get('jwt.secret'), (err, decoded) => {
-        if (err) return resolve(null);
+      jwt.verify(token, config.get('jwt.secret'), (error, decoded) => {
+        if (error) return resolve(null);
         return resolve(decoded);
       });
     });
@@ -129,8 +129,8 @@ export class RedisAuthService implements AuthService {
         .then((count) => {
           return resolve(count >= 1 ? true : false);
         })
-        .catch((err) => {
-          return reject(err);
+        .catch((error) => {
+          return reject(error);
         });
     });
   }
@@ -204,8 +204,8 @@ export class RedisAuthService implements AuthService {
 
   public testConnection(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.client.set('test', 'connected', (err) => {
-        if (err) {
+      this.client.set('test', 'connected', (error) => {
+        if (error) {
           reject();
         } else {
           resolve(true);

@@ -8,3 +8,4 @@ import './LogoutController';
 import './RefreshAccessTokenController';
 import './UpdateUserController';
 import './ActivateAccountController';
+import './ResendActivationLinkController';

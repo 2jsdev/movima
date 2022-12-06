@@ -40,8 +40,8 @@ export class AWSFileUploader implements FileUploaderService {
   async upload(files: File[]): Promise<UploadedFileResponse[] | undefined> {
     try {
       return await Promise.all(files.map((file) => this.uploadFile(file)));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
       return undefined;
     }
   }
