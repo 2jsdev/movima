@@ -4,7 +4,6 @@ import { User } from '../../../domain/User';
 import { UserName } from './../../../domain/UserName';
 import { UserEmail } from '../../../domain/UserEmail';
 import { UserMapper } from './UserMapper';
-import { VerificationToken } from '../../../domain/VerificationToken';
 import { Nullable } from '../../../../../Shared/core/Nullable';
 import models from '../../../../../Shared/infrastructure/persistence/sequelize/models';
 
@@ -15,7 +14,7 @@ export class SequelizeUserRepository implements UserRepository {
   constructor() {
     this.models = models;
   }
-  async search(props: {
+  async findOne(props: {
     user_email?: string;
     username?: string;
     activation_token?: string;

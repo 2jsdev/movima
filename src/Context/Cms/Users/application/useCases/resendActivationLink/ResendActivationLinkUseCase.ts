@@ -14,7 +14,7 @@ export class ResendActivationLinkUseCase implements UseCase<ResendActivationLink
 
   async execute(request: ResendActivationLinkDTO): Promise<ResendActivationLinkResponse> {
     try {
-      const user = await this.userRepository.search({ user_email: request.email });
+      const user = await this.userRepository.findOne({ user_email: request.email });
       const userFound = !!user === true;
 
       if (!userFound) {

@@ -14,7 +14,7 @@ export class ActivateAccountUseCase implements UseCase<ActivateAccountDTO, Promi
 
   async execute(request: ActivateAccountDTO): Promise<ActivateAccountResponse> {
     try {
-      const user = await this.userRepository.search({ activation_token: request.token });
+      const user = await this.userRepository.findOne({ activation_token: request.token });
       const userFound = !!user === true;
 
       if (!userFound) {

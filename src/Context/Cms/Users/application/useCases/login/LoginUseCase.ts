@@ -37,7 +37,7 @@ export class LoginUserUseCase implements UseCase<LoginDTO, Promise<LoginResponse
       username = usernameOrError.getValue();
       password = passwordOrError.getValue();
 
-      user = await this.userRepository.search({ username: username.value.toString() });
+      user = await this.userRepository.findOne({ username: username.value.toString() });
       const userFound = !!user;
 
       if (!userFound) {

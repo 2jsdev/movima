@@ -41,7 +41,7 @@ export class CreateUserUseCase implements UseCase<CreateUserDTO, Promise<CreateU
       }
 
       try {
-        const alreadyCreatedUserByUserName = await this.userRepository.search({ username: username.value.toString() });
+        const alreadyCreatedUserByUserName = await this.userRepository.findOne({ username: username.value.toString() });
 
         const userNameTaken = !!alreadyCreatedUserByUserName === true;
 

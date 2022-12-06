@@ -1,7 +1,5 @@
 import { User } from '../User';
-import { UserName } from '../UserName';
 import { UserEmail } from '../UserEmail';
-import { VerificationToken } from '../VerificationToken';
 import { Nullable } from '../../../../Shared/core/Nullable';
 
 type searchProps = {
@@ -12,7 +10,7 @@ type searchProps = {
 };
 
 export interface UserRepository {
-  search(props: searchProps): Promise<Nullable<User>>;
+  findOne(props: searchProps): Promise<Nullable<User>>;
   exists(userEmail: UserEmail): Promise<boolean>;
   getUserByUserId(userId: string): Promise<User>;
   save(user: User): Promise<void>;

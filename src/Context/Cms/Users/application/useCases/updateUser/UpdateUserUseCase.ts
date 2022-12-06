@@ -35,7 +35,7 @@ export class UpdateUserUseCase implements UseCase<UpdateUserDTO, Promise<UpdateU
 
         email = emailOrError.getValue();
         if (userFound.email.value !== request.email) {
-          const userFound = await this.userRepository.search({ user_email: email.value.toString() });
+          const userFound = await this.userRepository.findOne({ user_email: email.value.toString() });
 
           if (!!userFound) {
             return left(new UpdateUserErrors.EmailAlreadyExistsError(request.email)) as UpdateUserResponse;
@@ -51,7 +51,7 @@ export class UpdateUserUseCase implements UseCase<UpdateUserDTO, Promise<UpdateU
 
         username = usernameOrError.getValue();
         if (userFound.username.value !== request.username) {
-          const userFound = await this.userRepository.search({ username: username.value.toString() });
+          const userFound = await this.userRepository.findOne({ username: username.value.toString() });
 
           if (!!userFound) {
             return left(new UpdateUserErrors.EmailAlreadyExistsError(request.username)) as UpdateUserResponse;
